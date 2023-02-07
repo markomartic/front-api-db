@@ -1,4 +1,5 @@
 import json
+import psycopg2
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -10,6 +11,38 @@ employees = [
 ]
 
 nextEmployeeId = 4
+cursor = None
+conn = None
+try:
+  print("CONNEXION EN COURS")
+  conn = psycopg2.connect(
+    host="127.0.0.1",
+    database="my_company_db",
+    user="postgres",
+    password="password",
+    port="5432"
+  )
+  cursor = conn.cursor()
+except:
+  print("CONNEXION FOIREE")
+try:
+  print("ESSAI CREATION TABLE")
+  cursor.execute('CREATE TABLE IF NOT EXISTS employees (id serial NOT NULL PRIMARY KEY, firstName varchar(255) NOT NULL, lastName varchar(255) NOT NULL, emailId varchar(255) NOT NULL);')
+  conn.commit()
+except:
+  print("TABLE EXISTE DEJA")
+
+cursor = conn.cursor()
+cursor.execute('CREATE TABLE IF NOT EXISTS employees (id serial NOT NULL PRIMARY KEY, firstName varchar(255) NOT NULL, lastName varchar(255) NOT NULL, emailId varchar(255) NOT NULL);')
+conn.commit()
+
+@app.route('/insert')
+def test():
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO employees(firstName, lastName, emailId) values ('fn1','ln1','em1')")
+    conn.commit()
+
+    return jsonify('success')
 
 @app.route('/api/v1/employees', methods=['GET'])
 def get_employees():
@@ -26,6 +59,7 @@ def get_employee(id):
   return next((e for e in employees if e['id'] == id), None)
 
 def employee_is_valid(employee):
+  print(employee)
   for key in employee.keys():
     if key != 'name':
       return False
@@ -33,8 +67,10 @@ def employee_is_valid(employee):
 
 @app.route('/api/v1/employees', methods=['POST'])
 def create_employee():
+  print("nouveau employé")
   global nextEmployeeId
   employee = json.loads(request.data)
+  print(employee)
   if not employee_is_valid(employee):
     return jsonify({ 'error': 'Invalid employee properties.' }), 400
 
