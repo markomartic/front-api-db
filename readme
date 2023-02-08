@@ -1,6 +1,10 @@
 instructions: 
 1. docker-compose up  
 
+Etat : 
+api.py doit être totalement modifiée pour utiliser la classe metier.client
+metier/client.py est presque finie
+
 Rq : il n'y a pas de front pour l'instant, il faut envoyer les requêtes manuellement
 
 si besoin de me contacter :
