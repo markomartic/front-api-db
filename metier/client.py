@@ -7,10 +7,11 @@ class Client:
             self.firstName = firstName
         if(self.__is_valid_lastName(lastName)):
             self.lastName = lastName
-        if(self.__is_valid_emailId(emailId):
+        if(self.__is_valid_emailId(emailId)):
             self.emailId = emailId
         
-        self.accountBalance = 0
+        self.accountBalance = None
+        self.accountId = None
 
     def __has_numbers(self, inputString):
         return any(char.isdigit() for char in inputString)
@@ -67,7 +68,7 @@ class Client:
 
     def __is_valid_emailId(self, emailId):
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        if(re.search(regex,emailId)
+        if(re.search(regex,emailId)):
             return True,""
         return False,"Invalid mail address."
 
