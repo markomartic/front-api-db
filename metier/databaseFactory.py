@@ -54,11 +54,20 @@ class PostgresDB(AbstractDatabase):
 
     def get_all_clients(self):
         self.cursor.execute("SELECT * FROM clients")
-        return self.cursor.fetchall()
+        res = self.cursor.fetchall()
+        ret = []
+        for row in res:
+            new_row = { 'id': row[0], 'firstName': row[1], 'lastName':row[2], 'emailId':row[3]}
+            ret.append(new_row)
+
+        return ret
 
     def get_client(self, id):
         self.cursor.execute("SELECT * FROM clients WHERE id=%s", str(id))
-        return self.cursor.fetchall()
+        res = self.cursor.fetchall()
+        if(len(res) == 0):
+            return None
+        return res[0]
 
     def create_client_table_if_not_exist(self):
         self.cursor.execute('CREATE TABLE IF NOT EXISTS clients (id serial NOT NULL PRIMARY KEY, firstName varchar(255) NOT NULL, lastName varchar(255) NOT NULL, emailId varchar(255) NOT NULL);')
@@ -85,8 +94,6 @@ class DatabaseFactory():
                 return JsonDB()
             raise AssertionError("Type is not valid.")
         except AssertionError as e:
-            print(e)
-        except NoneType as e:
             print(e)
 
 if(__name__ == "__main__"):

@@ -1,0 +1,34 @@
+AWS
+
+envs de dev:
+
+DEV -> UAT -> PProd -> Prod
+(ce sont des machines différentes)
+
+critères de choix d'une région :
+conformité : est-ce que les données sont critiques?
+latence : 
+pricing : le prix d'un service n'est pas forcéement le même dans toutes les régions
+disponibilité : un nouveau service AWS n'est pas forcément dispo dans toutes les régions
+SHARED RESPONSABILITY MODEL
+
+ROOT != ???
+
+Users : 
+ -> 
+ ->
+ ->
+
+Droits :
+-> IAM user:Admin
+-> IAM Groups:Politique
+-> IAM users:a les droits du groupe au quel il appartient
+ACL : permet d'attribuer individuellement les droits aux users ou aux groupes
+
+IAMRole : accès au storage
+La machine virtuelle du cloud (ex:EC2) a besion d'écrire et de lire des fichiers depuis un serveur
+de storage, on utilise le IAMRole pour lui donner l'autorisation d'accéder aux données de ce serveur
+
+
+DEV -> UAT -> PProd -> Prod
+(ce sont des machines différentes)

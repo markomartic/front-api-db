@@ -11,10 +11,11 @@ class ClientFactory():
             return None
         if("emailId" not in json):
             return None
+        new_client = metier.Client(json['firstName'], json['lastName'], json['emailId'])
+        return new_client
 
 if(__name__ == "__main__"):
     json_ex = {'firstName': 'fn', 'lastName': 'ln', 'emailId': 'emalalalail@test.fr'}
 
-    print(len(json_ex))
-    print(json_ex['firstName'])
-    print(json_ex['test'])
+    new_client = metier.ClientFactory.json2client(json_ex)
+    print(new_client.firstName)

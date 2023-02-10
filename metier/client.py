@@ -2,7 +2,7 @@ import re
 import string
 
 class Client:
-    def __init__(self, firstName, lastName, emailId):
+    def __new__(self, firstName, lastName, emailId):
         if(self.__is_valid_firstName(firstName)):
             self.firstName = firstName
         if(self.__is_valid_lastName(lastName)):
