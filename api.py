@@ -7,22 +7,23 @@ app = Flask(__name__)
 db = metier.DatabaseFactory.build_db("postgres")
 
 @app.route('/api/v1/employees', methods=['GET'])
-def get_employees():
+def get_all_clients():
   return jsonify(db.get_all_clients())
   
 @app.route('/api/v1/employees/<int:id>', methods=['GET'])
-def get_employee(id):
+def get_client(id):
   return jsonify(db.get_client(id))
 
 @app.route('/api/v1/employees', methods=['POST'])
-def create_employee():
+def add_client():
   employee = json.loads(request.data)
   print(f"create : {employee}")
-  return jsonify({ 'error': 'Invalid employee properties.' }), 400
-  return f'{employee}', 201, { 'location': f'/api/v1/employees/{employee["id"]}' }
+  return jsonify("OK")
+  #return jsonify({ 'error': 'Invalid employee properties.' }), 400
+  #return f'{employee}', 201, { 'location': f'/api/v1/employees/{employee["id"]}' }
 
 @app.route('/api/v1/employees/<int:id>', methods=['PUT'])
-def update_employee(id: int):
+def update_client(id: int):
   employee = get_employee(id)
   if employee is None:
     return jsonify({ 'error': 'Employee does not exist.' }), 404
