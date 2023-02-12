@@ -2,11 +2,21 @@ instructions:
 1. docker-compose up  
 
 Etat : 
-api.py doit être totalement modifiée pour utiliser la classe metier.client
-metier/client.py est presque finie
+il reste des cas spécifiques à traiter pour la création d'user
 
-Rq : il n'y a pas de front pour l'instant, il faut envoyer les requêtes manuellement
+Rq : il faut envoyer les requêtes manuellement
+
+Adresses pour faire les requêtes :
+GET : 127.0.0.1:80/api/v1/employees
+GET : 127.0.0.1:80/api/v1/employees/1
+POST : 127.0.0.1:80/api/v1/employees
+avec comme body de la requête post :
+{
+    "firstName": FirstName1,
+    "lastame": "LastName1",
+    "emailId": "emalffdalalail@test.fr"
+}
 
 si besoin de me contacter :
 tel : 06 01 43 55 31
-mail : marticmarkos86@gmail / marko.martic@supdevinci-edu.fr
+mail : marticmarkos86@gmail
